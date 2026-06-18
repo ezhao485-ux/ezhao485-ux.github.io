@@ -1,2 +1,53 @@
-<h1>Under Consonstruction</h1>
-<p><a href="home.html">return to home</a></p>
+<html>
+<head>
+	<title>Ethan's MC command Website</title>
+	<link rel="icon" type="image/svg+xml" href="https://ethanzhao.org/minecraft_logo.svg">
+</head>
+<body style="background-image: url('bg.png'); background-repeat: no-repeat; background-size: cover;">
+	<p><a class="button" href=home.html>Home</a> <a class=button href=#>Commands</a></p>
+	<h2>title: Killer Carrot [26.2.1] (Too long for chat)</h2>
+	<h3>description: This is a carrot that will send your enemies flying.</h3>
+	<p></p>
+	<img src="level_epic.png">
+	<p><a class="button" href=# onclick="Killer_Carrot()">Copy Command</a></p>
+</body>
+
+<style>
+	a {
+		color:orange;
+		text-decoration:none;
+	}
+	a:hover {
+		color:blue;
+		text-decoration:underline;
+	}
+
+	.button {
+      display: inline-block;
+      padding: 10px 16px;
+      background-color: orange;
+      color: blue;
+      text-decoration: none;
+      border-radius: 6px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+
+
+    .button:hover {
+     	background-color: gray;
+     	color:black;
+     	text-decoration: none;
+     }
+
+</style>
+
+<script>
+	function Killer_Carrot() {
+		navigator.clipboard?.writeText('give @a carrot[custom_name=[{"text":"Killer Carrot","italic":false,"color":"dark_red"}],lore=[[{"text":"This carrot will send enemies flying","italic":false,"color":"gray"},{"text":".","italic":false,"color":"gray"}]],rarity=rare,enchantments={fire_aspect:255,knockback:50},tooltip_display={hidden_components:[enchantments]}]');
+		alert('Command Copied');
+	}
+</script>
+
+</html>
