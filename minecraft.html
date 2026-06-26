@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebCraft Launcher</title>
+    <link rel="icon" type="image/svg+xml" href="https://ethanzhao.org/minecraft_logo.svg">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Launcher Container */
+        .launcher-container {
+            width: 400px;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #4caf50;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaaaaa;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: #2b2b2b;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #4caf50;
+        }
+
+        .btn-launch {
+            width: 100%;
+            padding: 15px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-launch:hover {
+            background: #45a049;
+        }
+
+        .btn-launch:active {
+            transform: scale(0.98);
+        }
+
+        /* Game Screen Frame */
+        #game-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            border: none;
+            z-index: 9999;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10000;
+            padding: 8px 15px;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .back-btn:hover { background: red; }
+    </style>
+</head>
+<body>
+
+    <button class="back-btn" id="backBtn" onclick="closeGame()">Close Game</button>
+
+    <div class="launcher-container" id="launcher">
+        <h1>WebCraft</h1>
+        
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Player123" value="Player">
+        </div>
+
+        <div class="form-group">
+            <label for="version">Select Version</label>
+            <select id="version">
+                <option value="https://classic.minecraft.net">Minecraft Classic (Official 0.0.23a)</option>
+            </select>
+        </div>
+
+        <button class="btn-launch" onclick="launchGame()">PLAY</button>
+    </div>
+
+    <iframe id="game-screen" src=""></iframe>
+
+    <script>
+        function launchGame() {
+            const username = document.getElementById('username').value.trim();
+            let gameUrl = document.getElementById('version').value;
+
+            if(!username) {
+                alert("Please enter a username!");
+                return;
+            }
+
+            localStorage.setItem('webcraft_username', username);
+            
+            const launcher = document.getElementById('launcher');
+            const gameScreen = document.getElementById('game-screen');
+            const backBtn = document.getElementById('backBtn');
+
+            launcher.style.display = 'none';
+            gameScreen.src = gameUrl;
+            gameScreen.style.display = 'block';
+            backBtn.style.display = 'block';
+        }
+
+        function closeGame() {
+            const launcher = document.getElementById('launcher');
+            const gameScreen = document.getElementById('game-screen');
+            const backBtn = document.getElementById('backBtn');
+
+            gameScreen.src = ""; 
+            gameScreen.style.display = 'none';
+            backBtn.style.display = 'none';
+            launcher.style.display = 'block';
+        }
+
+        window.onload = function() {
+            const savedName = localStorage.getItem('webcraft_username');
+            if(savedName) {
+                document.getElementById('username').value = savedName;
+            }
+        }
+    </script>
+</body>
+</html>
